@@ -56,61 +56,60 @@ function App() {
     <ProvideAuth>
       <Router>
         <Switch>
-          <Route>
-            <Route path="/:playingMode/">
-              <NavBar />
-              <LateralBar />
-            </Route>
-
-            <PrivateRoute exact path="/">
-              <MainMenu />
-            </PrivateRoute>
-
+          {/* Rrugët publike */}
+          <Route path="/login">
+            <Login url={url} />
+          </Route>
+          
+          {/* Rrugët private */}
+          <PrivateRoute exact path="/">
+            <MainMenu />
+          </PrivateRoute>
+          
+          <PrivateRoute exact path="/info">
+            <AccountInfo />
+          </PrivateRoute>
+          
+          {/* Rrugët me NavBar dhe LateralBar */}
+          <Route path="/:playingMode">
+            <NavBar />
+            <LateralBar />
+            
             <Switch>
-              <PrivateRoute
-                exact
-                path="/:playingMode/category/"
-              >
-                <Groups />
-              </PrivateRoute>
-              <PrivateRoute exact path="/:playingMode/category/:category/"></PrivateRoute>
-            </Switch>
-
-            <Switch>
-              <PrivateRoute exact path="/:playingMode/category/:category/search/">
-                <Search />
-              </PrivateRoute>
-              <PrivateRoute exact path="/:playingMode/search/">
-                <Search />
-              </PrivateRoute>
-            </Switch>
-
-            <Switch>
-              <PrivateRoute exact path="/live/category/:category/tvguide/">
+              {/* Rrugët për EPG Fullscreen */}
+              <PrivateRoute exact path="/live/category/:category/tvguide">
                 <EpgFullListing />
               </PrivateRoute>
               <PrivateRoute exact path="/live/category/:category/tvguide/:date">
                 <EpgFullListing />
               </PrivateRoute>
-            </Switch>
-
-            <Switch>
-              <Route path="/login/">
-                <Login url={url} />
-              </Route>
-              <PrivateRoute exact path="/info/">
-                <AccountInfo />
+              
+              {/* Rrugët për Search */}
+              <PrivateRoute exact path="/:playingMode/category/:category/search">
+                <Search />
               </PrivateRoute>
+              <PrivateRoute exact path="/:playingMode/search">
+                <Search />
+              </PrivateRoute>
+              
+              {/* Rrugët për Groups */}
+              <PrivateRoute exact path="/:playingMode/category">
+                <Groups />
+              </PrivateRoute>
+              
+              {/* Rrugët për Live */}
               <PrivateRoute path="/live/category/:category">
                 <MainLive />
               </PrivateRoute>
-              <PrivateRoute path="/live/">
+              <PrivateRoute path="/live">
                 <MainLive />
               </PrivateRoute>
+              
+              {/* Rrugët për Vod */}
               <PrivateRoute path="/:playingMode/category/:category">
                 <MainVod />
               </PrivateRoute>
-              <PrivateRoute path="/:playingMode/">
+              <PrivateRoute path="/:playingMode">
                 <MainVod />
               </PrivateRoute>
             </Switch>
